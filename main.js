@@ -50,6 +50,7 @@ const initialize = () => {
 
 }
 
+
 const printInitialData = () => {
   console.log(currentCard)
   let h1 = document.getElementById('greet')
@@ -80,14 +81,24 @@ const printCurrentCard = () => {
   let expirationDate = document.createElement('p')
   let totalPesos = document.createElement('p')
   let totalDollars = document.createElement('p')
-  
+
   pesosDebt.innerText = `Su deuda en pesos es: ${card.pesosDebt} ARS`
   dollarDebt.innerText = `Su deuda en dolares es: ${card.dollarsDebt} USD`
   minimunPayment.innerText = `El pago minimo es: ${card.minimunPayment} ARS`
   expirationDate.innerText = `Fecha de vencimiento: ${card.expirationDate}`
-  totalPesos.innerText = `El pago total en Pesos es: ${Math.round(card.pesosDebt + (card.dollarsDebt * data.dollarExchange))} ARS`
-  totalDollars.innerText = `El pago total en Dolares es: ${Math.round(card.dollarsDebt + (card.pesosDebt / data.dollarExchange))} USD`
-  
+ 
+  if (card.pesosDebt>0){
+    totalPesos.innerText = `El pago total en Pesos es: ${Math.round(card.pesosDebt + (card.dollarsDebt * data.dollarExchange))} ARS`}
+  else {
+        totalPesos.innerText = null
+      }
+
+  if (card.dollarsDebt>0){
+    totalDollars.innerText = `El pago total en Dolares es: ${Math.round(card.dollarsDebt + (card.pesosDebt / data.dollarExchange))} USD`}
+  else {
+        totalDollars.innerText = null
+      }
+
     
   li.appendChild(pesosDebt)
   li.appendChild(dollarDebt)
@@ -127,8 +138,22 @@ const paymentOptions = () => {
   let optionPayDollar =document.createElement('option')
   let optionPayMin =document.createElement('option')
 
-  optionPayPesos.innerText = `Elijo pagar en pesos ${Math.round(card.pesosDebt + (card.dollarsDebt * data.dollarExchange))} ARS`
-  optionPayDollar.innerText = `Elijo pagar en dolares ${Math.round(card.dollarsDebt + (card.pesosDebt / data.dollarExchange))} USD`
+
+  if (card.pesosDebt>0){
+    optionPayPesos.innerText = `Elijo pagar en pesos ${Math.round(card.pesosDebt + (card.dollarsDebt * data.dollarExchange))} ARS`}
+  else {
+    optionPayPesos.innerText = null
+      }
+
+  if (card.dollarDebt>0){
+    optionPayDollar.innerText = `Elijo pagar en dolares ${Math.round(card.dollarsDebt + (card.pesosDebt / data.dollarExchange))} USD`}
+  else {
+    optionPayDollar.innerHTML = ''
+          }
+    
+
+  
+  
   optionPayMin.innerText = `Elijo para el pago minimo en pesos de ${card.minimunPayment} quedadon un remanente de ${Math.round((card.pesosDebt + (card.dollarsDebt * data.dollarExchange)) - card.minimunPayment )}`
 
   if (data.hasPesosAccount === true && data.hasDollarsAccount === true){
@@ -144,7 +169,6 @@ const paymentOptions = () => {
   containerSelect.appendChild(selectPayment)
  
 }
-
 
 
 
