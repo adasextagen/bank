@@ -138,22 +138,9 @@ const paymentOptions = () => {
   let optionPayDollar =document.createElement('option')
   let optionPayMin =document.createElement('option')
 
-
-  if (card.pesosDebt>0){
-    optionPayPesos.innerText = `Elijo pagar en pesos ${Math.round(card.pesosDebt + (card.dollarsDebt * data.dollarExchange))} ARS`}
-  else {
-    optionPayPesos.innerText = null
-      }
-
-  if (card.dollarDebt>0){
-    optionPayDollar.innerText = `Elijo pagar en dolares ${Math.round(card.dollarsDebt + (card.pesosDebt / data.dollarExchange))} USD`}
-  else {
-    optionPayDollar.innerHTML = ''
-          }
-    
-
   
-  
+  optionPayPesos.innerText = `Elijo pagar en pesos ${Math.round(card.pesosDebt + (card.dollarsDebt * data.dollarExchange))} ARS`
+  optionPayDollar.innerText = `Elijo pagar en dolares ${Math.round(card.dollarsDebt + (card.pesosDebt / data.dollarExchange))} USD`
   optionPayMin.innerText = `Elijo para el pago minimo en pesos de ${card.minimunPayment} quedadon un remanente de ${Math.round((card.pesosDebt + (card.dollarsDebt * data.dollarExchange)) - card.minimunPayment )}`
 
   if (data.hasPesosAccount === true && data.hasDollarsAccount === true){
