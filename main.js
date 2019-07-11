@@ -47,12 +47,12 @@ const initialize = () => {
   printInitialData()
   printCurrentCard()
   paymentOptions()
+  payAction()
 
 }
 
 
 const printInitialData = () => {
-  console.log(currentCard)
   let h1 = document.getElementById('greet')
   let select = document.getElementById('selectCard')
   select.innerHTML = ''
@@ -122,7 +122,7 @@ const printCurrentCard = () => {
   
 
 }
-
+let paymentDefault = data.cards[0].minimunPayment
 const paymentOptions = () => {
   
   let containerSelect = document.getElementById('selectPay')
@@ -132,16 +132,24 @@ const paymentOptions = () => {
   let card = data.cards.find( 
     e => e.brand === currentCard
   )
+  
 
   let selectPayment = document.createElement('select')
+
+  
   let optionPayPesos =document.createElement('option')
   let optionPayDollar =document.createElement('option')
   let optionPayMin =document.createElement('option')
-
+ 
   
   optionPayPesos.innerText = `Elijo pagar en pesos ${Math.round(card.pesosDebt + (card.dollarsDebt * data.dollarExchange))} ARS`
+  optionPayPesos.value = 'pesos'
   optionPayDollar.innerText = `Elijo pagar en dolares ${Math.round(card.dollarsDebt + (card.pesosDebt / data.dollarExchange))} USD`
-  optionPayMin.innerText = `Elijo para el pago minimo en pesos de ${card.minimunPayment} quedadon un remanente de ${Math.round((card.pesosDebt + (card.dollarsDebt * data.dollarExchange)) - card.minimunPayment )}`
+  optionPayDollar.value = 'dollar'
+  optionPayMin.innerText = `Elijo para el pago minimo en pesos de ${card.minimunPayment} quedando un remanente de ${Math.round((card.pesosDebt + (card.dollarsDebt * data.dollarExchange)) - card.minimunPayment )}`
+  optionPayMin.value = 'min'
+  optionPayMin.selected = card.minimunPayment  
+  
 
   if (data.hasPesosAccount === true && data.hasDollarsAccount === true){
     selectPayment.appendChild(optionPayPesos)
@@ -152,7 +160,7 @@ const paymentOptions = () => {
       selectPayment.appendChild(optionPayPesos)
     }
 
-  selectPayment.appendChild(optionPayMin)
+    selectPayment.appendChild(optionPayMin)
   containerSelect.appendChild(selectPayment)
  
 }
@@ -163,5 +171,12 @@ const paymentOptions = () => {
 
 const changeCard = () => {
   currentCard = event.target.value
+  console.log(event.target.value)
   initialize()
+}
+
+
+const payAction = () => {  
+  paymentDefault= event.target.value
+
 }
