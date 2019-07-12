@@ -1,0 +1,19 @@
+body {
+  background-color: aliceblue;
+}
+
+#currentCard {
+  width: 85.6mm;
+  height: 54mm;
+  border-radius: 5%;
+  background-color: #080b13;
+  color: white;
+}
+#currentCard h3 {
+  float: left;
+}
+#currentCard p {
+  display: block;
+}
+
+/*# sourceMappingURL=style.css.map */

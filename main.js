@@ -76,14 +76,18 @@ const printCurrentCard =()=>{
     const container = document.getElementById("currentCard")
     container.innerHTML = ""
     const card = data.cards.find(card=>card.brand===currentCard)
-        
+    
+    const titleBlock = document.createElement("div")
+    titleBlock.id="titleBlock"
+    container.appendChild(titleBlock)
+
     const title = document.createElement("h3")
     title.innerText =card.brand
-    container.appendChild(title)
+    titleBlock.appendChild(title)
     
     const date = document.createElement("em")
     date.innerText = `Vencimiento: ${card.expirationDate}`
-    container.appendChild(date)
+    titleBlock.appendChild(date)
     
     if (card.pesosDebt) {
         const debtPesos = document.createElement("p")
