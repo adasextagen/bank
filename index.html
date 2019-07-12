@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="main.js" type="text/javascript"></script>
-  <title>Document</title>
-</head>
-<body onload="initialize()">
-    <h1 id="greet"></h1>
-    <select id="selectCard" onchange="changeCard()">
-
-    </select>
-    <div id="payment">
-
-    </div>
-</body>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+        <title>indigencia</title>
+        <script src='main2.js' type='text/javascript'></script>
+        <link rel="icon" type="png" href="plati.png" />
+    </head>
+    <body onLoad="initialize()">
+        <h1 id="greet"></h1>
+        <select id="selectCard" onchange="changeCard()"></select>
+        <div id="currentCard"></div>
+        <select id="selectCurrency" onchange="changeCurrency()"></select>
+        <select id="payment" onchange="changePaymentSelection()"></select>
+        <button id="confirm" onclick="remainingDebt()">CONFIRMAR</button>
+        <div id="remainingDebt"></div>
+    </body>
 </html>
