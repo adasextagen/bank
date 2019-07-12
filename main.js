@@ -63,7 +63,7 @@ const printInitialData = () => {
     let option = document.createElement('option')
     option.innerText = card.brand
     option.value = card.brand
-    option.selected = card.brand === currentCard ? true : false 
+    option.selected = card.brand === currentCard
     select.appendChild(option)
   })
 }
@@ -85,17 +85,30 @@ const printCurrentCard = () => {
   dollarsBalance.innerText = `Saldo a pagar en dólares: US$ ${card.dollarsDebt}`
   container.appendChild(title)
   container.appendChild(date)
-  // hasta acá apendea si o si (nombre tarjeta y expiracion)
+  container.appendChild(dollarsBalance)
+  container.appendChild(pesosBalance)
+  container.appendChild(selectPaymentCurrency(card))
+}
 
-  // funcion para saber si tiene o no cuenta en pesos/dolares - ver como mejorar
-  if (card.pesosDebt >0){
-    container.appendChild(pesosBalance)
-  } else {null}
+const selectPaymentCurrency = ({pesosDebt, dollarsDebt}) =>{
+  //let {pesosDebt, dollarsDebt} = card
 
-  if (card.dollarsDebt >0){
-    container.appendChild(dollarsBalance)
-  } else {null}
+  let selector = document.createElement('select')
+  if( data.hasPesosAccount && pesosDebt){
+    let pesos = document.createElement('option')
+    pesos.innerText = 'Pagar en pesos'
+    pesos.value = 'pesos'
+    selector.appendChild(pesos)
+  }
 
+  if(data.hasDollarsAccount && dollarsDebt){
+    let dollars = document.createElement('option')
+    dollars.innerText = 'Pagar en dolares'
+    dollars.value = 'dollars'
+    selector.appendChild(dollars)
+  }
+
+  return selector
 }
 
 const changeCard = () => {
