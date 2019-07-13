@@ -6,14 +6,28 @@ body {
   width: 85.6mm;
   height: 54mm;
   border-radius: 5%;
-  background-color: #080b13;
+  background: linear-gradient(to top left, #080b13 0%, #5b6376 100%);
   color: white;
 }
-#currentCard h3 {
-  float: left;
+#currentCard #titleBlock {
+  padding: 5mm 10mm;
+  display: flex;
+  justify-content: space-between;
 }
-#currentCard p {
-  display: block;
+#currentCard #titleBlock h3, #currentCard #titleBlock p {
+  margin: 0;
+}
+#currentCard #titleBlock h3 {
+  font-weight: bold;
+}
+#currentCard #debtBlock {
+  padding: 5mm 10mm;
+}
+#currentCard #debtBlock h3, #currentCard #debtBlock p {
+  margin: 2mm 0;
+}
+#currentCard #debtBlock h3 {
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -20,7 +20,7 @@ let data = {
     hasDollarsAccount:true,
     cards: [
         {
-            brand:"Visa",
+            brand:"VISA",
             pesosDebt:25689,
             dollarsDebt:58.50,
             minimumPayment:1800,
@@ -70,25 +70,37 @@ const printCurrentCard =()=>{
     const container = document.getElementById("currentCard")
     container.innerHTML = ""
     const card = data.cards.find(card=>card.brand===currentCard)
+
+    const titleBlock = document.createElement("div")
+    titleBlock.id = "titleBlock"
+    container.appendChild(titleBlock)
         
     const title = document.createElement("h3")
     title.innerText =card.brand
-    container.appendChild(title)
+    titleBlock.appendChild(title)
     
-    const date = document.createElement("em")
-    date.innerText = `Vencimiento: ${card.expirationDate}`
-    container.appendChild(date)
+    const date = document.createElement("P")
+    date.innerText = `VENCE ${card.expirationDate}`
+    titleBlock.appendChild(date)
     
+    const debtBlock = document.createElement ("div")
+    debtBlock.id = "debtBlock"
+    container.appendChild(debtBlock)
+    
+    const debtTitle = document.createElement ("h3")
+    debtTitle.innerText = "Saldo a pagar" 
+    debtBlock.appendChild(debtTitle)
+
     if (card.pesosDebt) {
         const debtPesos = document.createElement("p")
-        debtPesos.innerText = `Deuda en pesos: ${card.pesosDebt}`
-        container.appendChild(debtPesos)
+        debtPesos.innerText = `$ ${card.pesosDebt}`
+        debtBlock.appendChild(debtPesos)
     }
 
     if (card.dollarsDebt) {
         const debtDollars = document.createElement("p")
-        debtDollars.innerText = `Deuda en dólares: ${card.dollarsDebt}`
-        container.appendChild(debtDollars) 
+        debtDollars.innerText = `U$D ${card.dollarsDebt}`
+        debtBlock.appendChild(debtDollars) 
     }  
 }
 
@@ -200,11 +212,54 @@ const remainingDebt = () => {
         }
 }
 
+// (PUNTO 1)
+window.localStorage.setItem("usuario", "Calixta")// así guardo algo
+//ejemplo de uso
+const printUserName = () => {
+    let title = document.getElementById("user")
+    title.innerText = window.localStorage.getItem("usuario") // así lo recupero
+}
 
+//(PUNTO 2)
+let datos = [
+    { id:'0001', name: "Tarta de jamón y queso", type: "principal", price:100, promo:"1" },
+	{ id:'0002', name: "Ensalada caprese" , type: "principal", price:100, promo:"2" },
+	{ id:'0003', name: "Milanesa" , type: "principal", price:100, promo:"3" },
+]
+
+    // { id:'0004', name: "Ensalada mixta", type: "guarnicion", price:100, promo:"1" },
+	// { id:'0005', name: "Papas fritas", type: "guarnicion", price:100, promo:"2" },
+	// { id:'0006', name: "Puré de zapallo", type: "guarnicion", price:100, promo:"3" },
+	// { id:'0007', name: "Flan con crema", type: "postre", price:100, promo:"1" },
+	// { id:'0008', name: "Queso y dulce", type: "postre", price:100, promo:"2" },
+    // { id:'0009', name: "Mousse de chocolate", type: "postre", price:100, promo:"3" },
+    // { id:'0010', name: "Coca Cola", type: "bebida", price:100, promo:"1" },
+    // { id:'0011', name: "Fanta", type: "bebida", price:100, promo:"2" },
+    // { id:'0012', name: "Fanta Light", type: "bebida", price:100, promo:"3" }
+
+const checkExistingData = () => {
+    const aux = window.localStorage.getItem("platos") //si no hay nada, será undefined 
+    // datos = aux ? aux : datos //si es undefined, esta condición es falsa y no se modifican los datos
+    //no obstante, hasta acá me devuelve texto, no un array, entonces lo tengo que volver a transformar
+    datos = aux ? JSON.parse (aux) : datos // esto convierte mi texto de nuevo en mi tipo de dato
+}
+checkExistingData() // no la pongo asociada a ningún evento, porque quiero que se ejecute enseguida.
+
+const newPlate = (plate) => {
+    datos.push(plate)
+    // window.localStorage.setItem("platos", datos) si lo guardo así, guarda [objetc OBJECT] cualquier cosa, para evitarlo
+    let parsedData = JSON.stringify(datos) // esto convierte mi objeto en texto y lo guardo en una variable
+    window.localStorage.setItem("platos", parsedData)
+
+}
+
+//si refresco la página y reimprimo datos, no estará el nuevo plato. 
+//Me gustaría que cada vez que agrego un plato, persista => lo guardo en local storage
 
 const initialize = ()=>{
     printInitialData()
     printCurrentCard()
     selectCurrency()
     payment()
+    printUserName()
 }
